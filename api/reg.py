@@ -1,4 +1,6 @@
-import requests, uuid, random, time
+import requests
+import uuid
+import random
 
 CLICK_URL = "https://ad2click.media-412.com/click"
 PID = "SM_REG_05NOV"
@@ -20,13 +22,11 @@ def fire_click():
         pass
     return click_id, gaid
 
-# Vercel Serverless Handler
+# Vercel Serverless Handler (NO time.sleep, NO print)
 def handler(event, context):
     clicks = random.randint(90, 100)
-    print(f"Starting {clicks} clicks...")
     for _ in range(clicks):
         fire_click()
-        time.sleep(0.25)
     final_click_id, final_gaid = fire_click()
     
     return {
