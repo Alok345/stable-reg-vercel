@@ -10,6 +10,10 @@
     {
       "src": "/api/reg",
       "dest": "/api/reg.py"
+    },
+    {
+      "src": "/",
+      "dest": "/api/reg.py"
     }
   ]
 }
