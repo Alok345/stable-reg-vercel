@@ -1,6 +1,10 @@
-import requests
+import urllib3
 import uuid
 import random
+import json
+
+# Built-in urllib3 (no install needed)
+http = urllib3.PoolManager()
 
 CLICK_URL = "https://ad2click.media-412.com/click"
 PID = "SM_REG_05NOV"
@@ -17,12 +21,12 @@ def fire_click():
         'sub5': gaid
     }
     try:
-        requests.get(CLICK_URL, params=params, timeout=5)
+        http.request('GET', CLICK_URL, fields=params, timeout=5.0)
     except:
         pass
     return click_id, gaid
 
-# Vercel Serverless Handler (NO time.sleep, NO print)
+# Vercel Handler
 def handler(event, context):
     clicks = random.randint(90, 100)
     for _ in range(clicks):
