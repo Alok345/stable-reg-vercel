@@ -1,4 +1,3 @@
-# api/reg.py
 import requests, uuid, random, time
 
 CLICK_URL = "https://ad2click.media-412.com/click"
@@ -21,16 +20,17 @@ def fire_click():
         pass
     return click_id, gaid
 
+# Vercel Serverless Handler
 def handler(event, context):
-    # Run only ONE registration
     clicks = random.randint(90, 100)
     print(f"Starting {clicks} clicks...")
-    for i in range(clicks):
+    for _ in range(clicks):
         fire_click()
-        time.sleep(0.25)  # 0.25s × 100 = 25s → fits in 60s limit
+        time.sleep(0.25)
     final_click_id, final_gaid = fire_click()
     
     return {
         "statusCode": 200,
+        "headers": { "Content-Type": "text/plain" },
         "body": f"REG DONE → GAID: {final_gaid[:8]}... | Clicks: {clicks}"
     }
